@@ -1,7 +1,9 @@
 <?php
-namespace App\Amigos\Controllers;
+/*namespace App\Amigos\Controllers;
 
+require __DIR__ . '/../app/Amigos/Controllers/AmigosController.php';
 use App\Amigos\Models\Amigo;
+$endpointsAmigos = require __DIR__ . '/../app/Amigos/Presentation/routers/endpoints.php';
 use Exception;
 
 class AmigosController {
@@ -42,6 +44,51 @@ class AmigosController {
 
     function borrarAmigos($id){
         $amigo = $this->getAmigos($id);
+        $amigo->delete();
+    }
+}*/
+namespace App\Amigos\Controllers;
+
+use App\Amigos\Models\Amigo;
+use Exception;
+
+class AmigosController {
+
+    function getAmigos(){
+        $rows = Amigo::all();
+        return $rows->toJson();
+    }
+    
+    function guardarAmigos($data){
+        $amigo = new Amigo();
+        $amigo->nombre = $data['nombre'];
+        $amigo->apodo = $data['apodo'];
+        $amigo->email = $data['email'];
+        $amigo->telefono = $data['telefono'];
+        $amigo->save();
+        return $amigo->toJson();
+    }
+
+    function getAmigoById($id){
+        $amigo = Amigo::find($id);
+        if(empty($amigo)){
+            throw new Exception("El amigo $id no existe", 1);
+        }
+        return $amigo;
+    }
+
+    function modificarAmigos($id, $data){
+        $amigo = $this->getAmigoById($id);
+        $amigo->nombre = $data['nombre'];
+        $amigo->apodo = $data['apodo'];
+        $amigo->email = $data['email'];
+        $amigo->telefono = $data['telefono'];
+        $amigo->save();
+        return $amigo;
+    }
+
+    function borrarAmigos($id){
+        $amigo = $this->getAmigoById($id);
         $amigo->delete();
     }
 }

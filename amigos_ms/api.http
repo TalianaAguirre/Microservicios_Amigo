@@ -1,3 +1,38 @@
 ###
 
 GET http://127.0.0.1:8000/test
+
+
+### Test
+GET http://127.0.0.1:8000/test
+
+### Obtener todos los amigos
+GET http://127.0.0.1:8000/amigos
+
+### Crear amigo
+POST http://127.0.0.1:8000/amigos
+Content-Type: application/json
+
+{
+    "nombre": "Juan",
+    "apodo": "Juancho",
+    "telefono": "3001234567",
+    "email": "juan@gmail.com"
+}
+
+### Ver un amigo por ID
+GET http://127.0.0.1:8000/amigos/1
+
+### Actualizar amigo
+PUT http://127.0.0.1:8000/amigos/1
+Content-Type: application/json
+
+{
+    "nombre": "Carlos",
+    "apodo": "Carlitos",
+    "telefono": "3009876543",
+    "email": "carlos@gmail.com"
+}
+
+### Eliminar amigo
+DELETE http://127.0.0.1:8000/amigos/1

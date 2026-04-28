@@ -28,7 +28,7 @@ class AmigosRepository
         return $response->withHeader("Content-Type", "application/json");
     }
 
-    function detail(Request $req, Response $resp, $args)
+    /*function detail(Request $req, Response $resp, $args)
     {
         try {
             $id = $args['id'];
@@ -36,6 +36,25 @@ class AmigosRepository
             $controller = new AmigosController();
             $amigos = $controller->getAmigos($id);
 
+            $resposeBody = $amigos->toJson();
+            $resp->getBody()->write($resposeBody);
+            return $resp->withHeader("Content-Type", "application/json");
+        } catch (Exception $ex) {
+            $resp->getBody()->write("Error: " . $ex->getMessage());
+            $code = 400;
+            if ($ex->getCode() == 1) {
+                $code = 404;
+            }
+            return $resp->withStatus($code);
+        }
+    }*/
+
+    function detail(Request $req, Response $resp, $args)
+    {
+        try {
+            $id = $args['id'];
+            $controller = new AmigosController();
+            $amigos = $controller->getAmigoById($id); // ← cambio aquí
             $resposeBody = $amigos->toJson();
             $resp->getBody()->write($resposeBody);
             return $resp->withHeader("Content-Type", "application/json");
